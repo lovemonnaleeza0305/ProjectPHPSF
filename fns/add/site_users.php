@@ -215,7 +215,12 @@ if ($create_user) {
             $noerror = false;
         }
     }
-
+    if (isset($data['full_name']) && str_contains($data['full_name'], ' ')) {
+        $result['error_variables'] = ['full_name'];
+        $result['error_message'] = Registry::load('strings')->username_should_not_contain_space;
+        $result['error_key'] = 'username_should_not_contain_space';
+        $noerror = false;
+    }
 
     if ($noerror) {
         $data['full_name'] = trim($data['full_name']);

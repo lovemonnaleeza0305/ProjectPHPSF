@@ -534,9 +534,14 @@ function load_aside(load, append = 0, skiptitle = 0) {
                         list = list + '</span>';
                         list = list + '</div>';
 
+                        if(grid){
+                            list = list + '<div class="right d-none">';
+                        } else {
+                            list = list + '<div class="right d-flex align-items-center justify-content-center">';
+                        }
                         if (data.loaded !== undefined) {
                             if ((data.loaded.title == "Files")||(data.loaded.title == "Bestanden")) {
-                                list = list + '<label class="selector prevent_default select_file_item">';
+                                list = list + '<label class="selector prevent_default select_file_item asdasdasd">';
                                 if(content[key].is_show==1){
                                     list = list + '<input type="checkbox" checked name="' + data.multiple_select.attributes.multi_select + '[]" value="' + content[key].identifier + '"/>';
                                 } else {
@@ -545,11 +550,6 @@ function load_aside(load, append = 0, skiptitle = 0) {
                                 list = list + '<span class="checkmark"></span>';
                                 list = list + '</label>';
                             }
-                        }
-                        if(grid){
-                            list = list + '<div class="right d-none">';
-                        } else {
-                            list = list + '<div class="right">';
                         }
                         
                         list = list + '<span class="options prevent_default">';

@@ -83,11 +83,17 @@ if ($noerror) {
 
     $site_user = DB::connect()->select('site_users', $join, $columns, $where);
 
-    if (isset($site_user[0])) {
+    if (isset($data["user"]) && str_contains($data["user"], " ")) {
+        $result = array();
+        $result['success'] = false;
+        $result['error_message'] = Registry::load('strings')->username_should_not_contain_space;
+        $result['error_key'] = 'username_should_not_contain_space';
+    }
+    else if (isset($site_user[0])) {
         $site_user = $site_user[0];
         $hashed_password = null;
         $columns = $join = $where = null;
-
+        
         if ($site_user['site_role_attribute'] === 'unverified_users') {
             $result = array();
             $result['success'] = false;

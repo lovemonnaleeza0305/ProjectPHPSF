@@ -22,8 +22,12 @@
     <div class="button">
     </div>
     
-    <div class="options">
+    <div class="top tools">
+    <div class="tool multiple_selection d-none"><span class="ask_confirmation" data-remove="site_user_files" data-user_id="239" multi_select="file" submit_button="Yes" cancel_button="No" confirmation="Are you sure you want to continue ?"><i class="iconic_close" data-bs-toggle="tooltip" data-bs-placement="left" title="" data-bs-original-title="Delete" aria-label="Delete"></i><span></span></span></div>
+    <div class="tool todo"><span class="upload_storage_files hide_tooltip_on_click"><i class="iconic_plus" title="" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="Upload Files" aria-label="Upload Files" aria-describedby="tooltip771404"></i></span></div>
+</div>
 
+    <div class="options">
         <div class="toggle_checkbox">
             <i class="iconic_selection"></i>
         </div>
