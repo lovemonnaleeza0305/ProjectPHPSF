@@ -60,7 +60,7 @@ if (role(['permissions' => ['site_users' => ['view_site_users', 'view_online_use
     if ($data["filter"] === 'banned' && isset($permission['ban_unban_users'])) {
         $where["site_roles.site_role_attribute"] = 'banned_users';
     } else if ($data["filter"] === 'guest_users') {
-        $where["site_roles.site_role_attribute"] = 'guest_users';
+        $where["site_roles.site_role_attribute"] = 'visitors';
     } else if ($data["filter"] === 'unverified_users' && isset($permission['edit_users'])) {
         $where["site_roles.site_role_attribute"] = 'unverified_users';
     } else if ($data["filter"] === 'pending_approval' && isset($permission['approve_users'])) {
@@ -90,10 +90,6 @@ if (role(['permissions' => ['site_users' => ['view_site_users', 'view_online_use
             $where["site_users_settings.offline_mode[!]"] = 1;
         }
 
-    }else if (isset($private_data["guest_users"])) {
-
-        $where["site_users.site_role_id"] = 5;
-
     } else {
 
         if (isset($data["site_role_id"])) {
@@ -122,8 +118,6 @@ if (role(['permissions' => ['site_users' => ['view_site_users', 'view_online_use
 
     if (isset($private_data["online"])) {
         $where["ORDER"] = ["site_users.online_status" => "ASC", "site_users.last_login_session" => "DESC"];
-    } elseif (isset($private_data["guest_users"])) {
-        $where["ORDER"] = ["site_users.last_login_session" => "DESC"];
     } else {
         if ($data["sortby"] === 'name_asc') {
             $where["ORDER"] = ["site_users.display_name" => "ASC"];
@@ -151,6 +145,27 @@ if (role(['permissions' => ['site_users' => ['view_site_users', 'view_online_use
 
 
     $site_users = DB::connect()->select('site_users', $join, $columns, $where);
+    if (isset($private_data["guest_users"])) {
+        $columns = $where = $join = $seen_users = null;
+        $columns = [
+                'seen_users',
+        ];
+        $where["user_id"] = Registry::load('current_user')->id;
+        $where["LIMIT"] = 1;
+        $datas = array();
+        $seen_users = DB::connect()->select('site_users', $columns,$where);
+        $exploded = explode(',',$seen_users[0]['seen_users']);
+        foreach ($site_users as $site_user) {
+            for( $i = 0 ; $i < count ($exploded) -1 ; $i++) {
+                if($site_user['user_id'] == $exploded[$i]){
+                    $datas[] = $site_user;
+                }
+            }
+        }
+        $site_users = null;
+        $site_users = $datas;
+    }
+    
 
     $i = 1;
 
@@ -246,8 +261,8 @@ if (role(['permissions' => ['site_users' => ['view_site_users', 'view_online_use
     } else {
         $output['loaded']->title = Registry::load('strings')->online;
     }
-    if (isset($private_data["guest_users"])) {
-        $output['loaded']->title = Registry::load('strings')->guest_users;
+    if (isset($private_data["visitors"])) {
+        $output['loaded']->title = Registry::load('strings')->visitors;
     }
 
     foreach ($site_users as $user) {

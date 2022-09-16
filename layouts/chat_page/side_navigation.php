@@ -156,7 +156,7 @@
                             <i class="iconic_users"></i>
                         </span>
                             <span class="title">
-                            <?php echo(Registry::load('strings')->guest_users) ?>
+                            <?php echo(Registry::load('strings')->visitors) ?>
                             </span>
                     </div>
                             </li>

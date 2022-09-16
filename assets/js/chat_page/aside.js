@@ -708,7 +708,27 @@ $('body').on('change', '.main .aside > .site_records > .records > .list > li > d
 
 $('body').on('click', ".main .aside > .site_records > .records > .list > li", function(event) {
     if (!$(event.target).hasClass('prevent_default') && !$(event.target).parent().hasClass('prevent_default')) {
-        user_id = $(this).data('user_id');
+        user_id = $(this).attr('user_id');
+        console.log("user_id",user_id);
+        $.ajax({
+            type: 'POST',
+            url: api_request_url,
+            data: {
+                update : "see_user",
+                see_user_id : user_id,
+            },
+            }).done(function(data) {
+                if (isJSON(data)) {
+                    data = $.parseJSON(data);
+                    console.log('Success-checked : ' + data);
+                } else {
+                    console.log('ERROR : ' + data);
+                    $('.main .aside > .storage_files_upload_status').addClass('d-none');
+                }
+            }).fail(function(qXHR, textStatus, errorThrown) {
+                console.log('ERROR : ' + errorThrown);
+            });
+            console.log("file checked!");
         if (!$(this).find(".options > span").is(":visible")) {
             $(".main .aside > .site_records > .records > .list > li > div > .right > .options > span").hide();
             $(".main .aside > .site_records > .records > .list > li > div > .left-grid > .options > span").hide();
@@ -737,26 +757,26 @@ $('body').on('click', ".main .aside > .site_records > .current_record .toggle_ch
 $('body').on('click', ".main .aside > .site_records > .records > .list > li > div > .right > .options", function(e) {
     user_id = $(this).find('.load_form').data('user_id');
     console.log("right option user_id clicked!", user_id);
-    $.ajax({
-        type: 'POST',
-        url: api_request_url,
-        data: {
-            update : "show_image",
-            file_name : $(this).prop('value'),
-            see_user_id : user_id,
-        },
-        }).done(function(data) {
-            if (isJSON(data)) {
-                data = $.parseJSON(data);
-                console.log('Success-checked : ' + data);
-            } else {
-                console.log('ERROR : ' + data);
-                $('.main .aside > .storage_files_upload_status').addClass('d-none');
-            }
-        }).fail(function(qXHR, textStatus, errorThrown) {
-            console.log('ERROR : ' + errorThrown);
-        });
-        console.log("file checked!");
+    // $.ajax({
+    //     type: 'POST',
+    //     url: api_request_url,
+    //     data: {
+    //         update : "show_image",
+    //         file_name : $(this).prop('value'),
+    //         see_user_id : user_id,
+    //     },
+    //     }).done(function(data) {
+    //         if (isJSON(data)) {
+    //             data = $.parseJSON(data);
+    //             console.log('Success-checked : ' + data);
+    //         } else {
+    //             console.log('ERROR : ' + data);
+    //             $('.main .aside > .storage_files_upload_status').addClass('d-none');
+    //         }
+    //     }).fail(function(qXHR, textStatus, errorThrown) {
+    //         console.log('ERROR : ' + errorThrown);
+    //     });
+    //     console.log("file checked!");
     if ($(this).find("span").is(":visible")) {
         $(".main .aside > .site_records > .records > .list > li > div > .right > .options > span").hide();
     } else {
