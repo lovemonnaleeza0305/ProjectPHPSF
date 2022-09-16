@@ -154,11 +154,13 @@ if (role(['permissions' => ['site_users' => ['view_site_users', 'view_online_use
         $where["LIMIT"] = 1;
         $datas = array();
         $seen_users = DB::connect()->select('site_users', $columns,$where);
-        $exploded = explode(',',$seen_users[0]['seen_users']);
-        foreach ($site_users as $site_user) {
-            for( $i = 0 ; $i < count ($exploded) -1 ; $i++) {
-                if($site_user['user_id'] == $exploded[$i]){
-                    $datas[] = $site_user;
+        if($seen_users[0]['seen_users'] != ""){
+            $exploded = explode(',',$seen_users[0]['seen_users']);
+            foreach ($site_users as $site_user) {
+                for( $i = 0 ; $i < count ($exploded) -1 ; $i++) {
+                    if($site_user['user_id'] == $exploded[$i]){
+                        $datas[] = $site_user;
+                    }
                 }
             }
         }
