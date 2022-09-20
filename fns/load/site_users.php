@@ -142,7 +142,10 @@ if (role(['permissions' => ['site_users' => ['view_site_users', 'view_online_use
             $where["ORDER"] = Medoo::raw('(POW((geo_longitude-'.$user_longitude.'),2) + POW((geo_latitude-'.$user_latitude.'),2))');
         }
     }
-
+    $output = array();
+    $output['loaded'] = new stdClass();
+    $output['loaded']->title = Registry::load('strings')->users;
+    $output['loaded']->offset = array();
 
     $site_users = DB::connect()->select('site_users', $join, $columns, $where);
     if (isset($private_data["guest_users"])) {
@@ -166,16 +169,14 @@ if (role(['permissions' => ['site_users' => ['view_site_users', 'view_online_use
         }
         $site_users = null;
         $site_users = $datas;
+        $output['loaded']->title = Registry::load('strings')->visitors;
     }
     
 
     $i = 1;
 
 
-    $output = array();
-    $output['loaded'] = new stdClass();
-    $output['loaded']->title = Registry::load('strings')->users;
-    $output['loaded']->offset = array();
+    
 
     if (!empty($data["offset"])) {
         $output['loaded']->offset = $data["offset"];
