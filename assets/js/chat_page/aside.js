@@ -7,12 +7,12 @@ $('.main .aside > .site_records > .records > .list').on('scroll', function(e) {
     if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight - 20) {
         if (!$('.main .aside > .site_records > .current_record').hasClass('EndResults') && !$('.main .aside > .site_records > .current_record').hasClass('loading')) {
             $('.main .aside > .site_records > .current_record').addClass('loading');
-            load_aside($('.main .aside > .site_records > .current_record'), 1);
+            // load_aside($('.main .aside > .site_records > .current_record'), 1);
         }
     }
 });
 $('.main .aside > .site_records > .records > .list.grid').on('scroll', function(e) {
-    if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight -100) {
+    if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
         if (!$('.main .aside > .site_records > .current_record').hasClass('EndResults') && !$('.main .aside > .site_records > .current_record').hasClass('loading')) {
             $('.main .aside > .site_records > .current_record').addClass('loading');
             load_aside($('.main .aside > .site_records > .current_record'), 1);
@@ -167,6 +167,14 @@ function load_aside(load, append = 0, skiptitle = 0) {
         $('.main .aside > .site_records > .current_record').removeClass('EndResults');
         $('.main .aside > .site_records > .current_record').addClass('loading');
         $('.main .aside > .site_records > .current_record > .addtext ').addClass('d-none');
+        $('.main .aside > .site_records > .records > .list.grid.show1').removeClass('show1');
+        $('.main .aside > .site_records > .records > .list.grid.show2').removeClass('show2');
+        $('.main .aside > .site_records > .records > .list.grid.show3').removeClass('show3');
+        $('.main .aside > .site_records > .records > .list.grid.show4').removeClass('show4');
+        $('.main .aside > .site_records > .records > .list.grid.show5').removeClass('show5');
+        $('.main .aside > .site_records > .records > .list.grid.show6').removeClass('show6');
+        $('.main .aside > .site_records > .records > .list.grid').removeClass('grid');
+        
 
         if (append == 0) {
 
@@ -422,37 +430,37 @@ function load_aside(load, append = 0, skiptitle = 0) {
                         });
                     }
                 }
-                $('.main .aside > .site_records > .records > .list.grid.show1').removeClass('show1');
-                $('.main .aside > .site_records > .records > .list.grid.show2').removeClass('show2');
-                $('.main .aside > .site_records > .records > .list.grid.show3').removeClass('show3');
-                $('.main .aside > .site_records > .records > .list.grid.show4').removeClass('show4');
-                $('.main .aside > .site_records > .records > .list.grid.show5').removeClass('show5');
-                $('.main .aside > .site_records > .records > .list.grid.show6').removeClass('show6');
-                if($('.main .aside > .site_records > .records > .list').hasClass('grid')){
+                console.log(grid);
+                if(grid){
                     switch(gridshownum) {
                         case 1:
+                            $('.main .aside > .site_records > .records > .list').addClass('grid');
                             $('.main .aside > .site_records > .records > .list.grid').addClass('show1');
                           break;
                         case 2:
+                            $('.main .aside > .site_records > .records > .list').addClass('grid');
                             $('.main .aside > .site_records > .records > .list.grid').addClass('show2');
                           break;
                         case 3:
+                            $('.main .aside > .site_records > .records > .list').addClass('grid');
                             $('.main .aside > .site_records > .records > .list.grid').addClass('show3');
                           break;
                         case 4:
+                            $('.main .aside > .site_records > .records > .list').addClass('grid');
                             $('.main .aside > .site_records > .records > .list.grid').addClass('show4');
                           break;
                         case 5:
+                            $('.main .aside > .site_records > .records > .list').addClass('grid');
                             $('.main .aside > .site_records > .records > .list.grid').addClass('show5');
                             break;
                         case 6:
+                            $('.main .aside > .site_records > .records > .list').addClass('grid');
                             $('.main .aside > .site_records > .records > .list.grid').addClass('show6');
                           break;
                         default:
                           break;
                       }
                 }
-
                 if (totalitems > 0) {
                     $.each(content, function(key, val) {
                         var item_attributes = '';
@@ -538,8 +546,8 @@ function load_aside(load, append = 0, skiptitle = 0) {
                         }
                         list = list + '</span>';
                         list = list + '</div>';
-
-                        if(grid){
+                        $('.main .aside > .site_records > .records > .list > li > div > .right.d-none').removeClass('d-none');
+                        if($('.main .aside > .site_records > .records > .list').hasClass('grid')){
                             list = list + '<div class="right d-none">';
                         } else {
                             list = list + '<div class="right d-flex align-items-center justify-content-center">';
@@ -762,26 +770,6 @@ $('body').on('click', ".main .aside > .site_records > .current_record .toggle_ch
 $('body').on('click', ".main .aside > .site_records > .records > .list > li > div > .right > .options", function(e) {
     user_id = $(this).find('.load_form').data('user_id');
     e.stopPropagation();
-    // $.ajax({
-    //     type: 'POST',
-    //     url: api_request_url,
-    //     data: {
-    //         update : "show_image",
-    //         file_name : $(this).prop('value'),
-    //         see_user_id : user_id,
-    //     },
-    //     }).done(function(data) {
-    //         if (isJSON(data)) {
-    //             data = $.parseJSON(data);
-    //             console.log('Success-checked : ' + data);
-    //         } else {
-    //             console.log('ERROR : ' + data);
-    //             $('.main .aside > .storage_files_upload_status').addClass('d-none');
-    //         }
-    //     }).fail(function(qXHR, textStatus, errorThrown) {
-    //         console.log('ERROR : ' + errorThrown);
-    //     });
-    //     console.log("file checked!");
     if ($(this).find("span").is(":visible")) {
         $(".main .aside > .site_records > .records > .list > li > div > .right > .options > span").hide();
     } else {
