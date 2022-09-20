@@ -723,6 +723,7 @@ load_aside_request=$.ajax({type:'POST',url:api_request_url,data:data,async:!0,be
 if(data.filters!==undefined){totalfilters=Object.keys(data.filters).length}
 if(data.sortby!==undefined){totalsortby=Object.keys(data.sortby).length}
 console.log(data.loaded);if(data.loaded!==undefined){if(skiptitle==0){$('.main .aside > .site_records > .current_record > .title > div > .text').replace_text(data.loaded.title)}
+if(data.loaded.addtext!==undefined){$('.main .aside > .site_records > .current_record > .addtext.d-none ').removeClass('d-none');$('.main .aside > .site_records > .current_record > .addtext > div > .text').replace_text(data.loaded.addtext)}
 if(data.loaded.offset!==undefined){$('.main .aside > .site_records .current_record_offset').val(data.loaded.offset)}
 if(data.loaded.null_search!==undefined){$('.main .aside > .site_records > .current_record').attr('null_search',!0)}
 if(data.multiple_select!==undefined&&data.multiple_select.title!==undefined){$('.main .aside > .site_records > .current_record > .options > div.toggle_checkbox').removeClass('d-none')}}

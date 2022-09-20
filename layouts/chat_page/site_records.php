@@ -21,6 +21,11 @@
     </div>
     <div class="button">
     </div>
+    <div class="addtext d-none">
+        <div>
+            <span class="text">Sample Profile</span>
+        </div>
+    </div>
 
     <div class="options">
         <div class="toggle_checkbox">

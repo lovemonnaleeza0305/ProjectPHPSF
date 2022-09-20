@@ -37,7 +37,7 @@ if (role(['permissions' => ['storage' => 'access_storage']])) {
         $output = array();
         $output['loaded'] = new stdClass();
         $output['loaded']->title = Registry::load('strings')->files;
-        $output['loaded']->subtext = "Add to profile";
+        $output['loaded']->addtext = Registry::load('strings')->add_to_profile;
 
         if (!empty($data["offset"])) {
             $output['loaded']->offset = $data["offset"];

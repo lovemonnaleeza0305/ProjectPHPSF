@@ -166,6 +166,7 @@ function load_aside(load, append = 0, skiptitle = 0) {
         $('.main .aside > .site_records > .records > .on_error').addClass('d-none');
         $('.main .aside > .site_records > .current_record').removeClass('EndResults');
         $('.main .aside > .site_records > .current_record').addClass('loading');
+        $('.main .aside > .site_records > .current_record > .addtext ').addClass('d-none');
 
         if (append == 0) {
 
@@ -320,6 +321,10 @@ function load_aside(load, append = 0, skiptitle = 0) {
                     if (data.loaded !== undefined) {
                         if (skiptitle == 0) {
                             $('.main .aside > .site_records > .current_record > .title > div > .text').replace_text(data.loaded.title);
+                        }
+                        if (data.loaded.addtext !== undefined) {
+                            $('.main .aside > .site_records > .current_record > .addtext.d-none ').removeClass('d-none');
+                            $('.main .aside > .site_records > .current_record > .addtext > div > .text').replace_text(data.loaded.addtext);
                         }
                         if (data.loaded.offset !== undefined) {
                             $('.main .aside > .site_records .current_record_offset').val(data.loaded.offset);
