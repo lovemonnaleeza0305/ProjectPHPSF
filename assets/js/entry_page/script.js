@@ -6,23 +6,6 @@ var locations = [];
 var location_id = 0;
 $.getJSON('assets/json/locations.json', function (json) {
     locations = json;
-});
-function isJSON (data) {
-    var IS_JSON = true;
-    try
-    {
-        var json = $.parseJSON(data);
-    }
-    catch(err) {
-        IS_JSON = false;
-    }
-    return IS_JSON;
-}
-
-$(document).ready(function() {
-    $('body').on('contextmenu', 'img', function(e) {
-        return false;
-    });
     $('.entry_box .form_container>form>.field>input[class="custom_field_11"]').autocomplete({
         // serviceUrl: '/autosuggest/service/url',
         lookup: locations,
@@ -43,6 +26,25 @@ $(document).ready(function() {
             $('#selction-ajax').html('You selected: none');
         }
     });
+});
+function isJSON (data) {
+    var IS_JSON = true;
+    try
+    {
+        var json = $.parseJSON(data);
+    }
+    catch(err) {
+        IS_JSON = false;
+    }
+    return IS_JSON;
+}
+
+$(document).ready(function() {
+    $('body').on('contextmenu', 'img', function(e) {
+        return false;
+    });
+    console.log(locations);
+    
 });    
     
 

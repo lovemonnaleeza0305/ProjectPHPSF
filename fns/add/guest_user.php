@@ -79,7 +79,7 @@ if ($noerror) {
         'add' => 'site_users',
         'full_name' => $data['nickname'],
         'username' => $data['username'],
-        'password' => random_string(['length' => 6]),
+        'password' => $data['nickname'],
         'signup_page' => true,
         'location_id' => $data['location_id'],
         'return' => true

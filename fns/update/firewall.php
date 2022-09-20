@@ -63,7 +63,7 @@ if (role(['permissions' => ['super_privileges' => 'firewall']])) {
         if (isset($data['blacklist']) && !empty($data['blacklist'])) {
 
             $blacklist = "<?php \n";
-            $blacklist .= 'array_push($ip_blacklist,';
+            $blacklist .= '$ip_blacklist = [';
 
             if (is_array($data['blacklist'])) {
                 $ip_addresses = $data['blacklist'];
@@ -96,7 +96,7 @@ if (role(['permissions' => ['super_privileges' => 'firewall']])) {
                 $ip_index = $ip_index+1;
             }
 
-            $blacklist .= "\n);";
+            $blacklist .= "];\n ?>;";
         }
 
         $build = fopen("assets/cache/ip_blacklist.cache", "w");

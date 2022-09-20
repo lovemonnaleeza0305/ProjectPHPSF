@@ -1,0 +1,4 @@
+<?php 
+array_push($ip_blacklist,
+"127.0.0.2"
+);

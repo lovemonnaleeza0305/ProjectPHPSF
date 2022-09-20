@@ -193,6 +193,11 @@
                                 <li class='load_aside' load="blocked"><?php echo(Registry::load('strings')->blocked) ?></li>
                                 <?php
                             }
+                            if (role(['permissions' => ['site_users' => 'block_users']])) {
+                                ?>
+                                <li class='load_aside' load="blocked_ips"><?php echo(Registry::load('strings')->ip_user_to_user_block) ?></li>
+                                <?php
+                            }
                             if (role(['permissions' => ['site_users' => 'ignore_users']])) {
                                 ?>
                                 <li class='load_aside' load="ignored"><?php echo(Registry::load('strings')->ignored) ?></li>

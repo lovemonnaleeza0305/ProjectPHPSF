@@ -756,7 +756,7 @@ $('body').on('click', ".main .aside > .site_records > .current_record .toggle_ch
 
 $('body').on('click', ".main .aside > .site_records > .records > .list > li > div > .right > .options", function(e) {
     user_id = $(this).find('.load_form').data('user_id');
-    console.log("right option user_id clicked!", user_id);
+    e.stopPropagation();
     // $.ajax({
     //     type: 'POST',
     //     url: api_request_url,

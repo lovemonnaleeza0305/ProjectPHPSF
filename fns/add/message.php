@@ -110,6 +110,16 @@ if ($force_request) {
 if (isset($data['group_id'])) {
     $data['group_id'] = filter_var($data['group_id'], FILTER_SANITIZE_NUMBER_INT);
 } elseif (isset($data['user_id'])) {
+    $site_users = DB::connect()->select('ip_blocked_users', ['blocked_user'], ['user' => $data['user_id']]);
+    $length = count($site_users);
+    $ipAddress = $_SERVER['REMOTE_ADDR'];
+    var_dump($site_users);
+    foreach ($site_users as $user) {
+        $ips = DB::connect()->select('site_users_device_logs', ['ip_address'], ['user_id' => $user["blocked_user"]]);
+        if ($ipAddress == $ips[0]['ip_address'])
+            return false;
+    }
+
     $data['user_id'] = filter_var($data['user_id'], FILTER_SANITIZE_NUMBER_INT);
 
 

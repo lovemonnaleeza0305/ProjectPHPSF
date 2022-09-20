@@ -390,6 +390,17 @@ if (role(['permissions' => ['site_users' => ['view_site_users', 'view_online_use
         $output['options'][$i][$option_index]->attributes['user_id'] = $user['user_id'];
         $option_index++;
 
+        $output['options'][$i][$option_index] = new stdClass();
+        $output['options'][$i][$option_index]->option = Registry::load('strings')->ip_user_to_user_block;
+        $output['options'][$i][$option_index]->class = 'ask_confirmation';
+        $output['options'][$i][$option_index]->attributes['data-add'] = 'block_user_ip';
+        $output['options'][$i][$option_index]->attributes['data-user_id'] = $user['user_id'];
+        $output['options'][$i][$option_index]->attributes['data-disapprove'] = true;
+        $output['options'][$i][$option_index]->attributes['confirmation'] = "Are you sure to block ip address of this user?";
+        $output['options'][$i][$option_index]->attributes['submit_button'] = Registry::load('strings')->yes;
+        $output['options'][$i][$option_index]->attributes['cancel_button'] = Registry::load('strings')->no;
+        $option_index++;
+
         if (role(['permissions' => ['site_users' => 'manage_user_access_logs']])) {
             $output['options'][$i][$option_index] = new stdClass();
             $output['options'][$i][$option_index]->option = Registry::load('strings')->access_logs;
