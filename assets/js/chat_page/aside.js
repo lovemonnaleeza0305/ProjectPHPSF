@@ -27,13 +27,13 @@ $("body").on("keyup", ".main .aside > .site_records > .search > input", function
             if (search.length != 0 || $('.main .aside > .site_records > .current_record').attr('null_search') !== undefined) {
                 $('.main .aside > .site_records .current_record_search_keyword').val(search);
                 $('.main .aside > .site_records .current_record_offset').val('');
-                load_aside($('.main .aside > .site_records > .current_record'), 2, 1);
+                load_aside($('.main .aside > .site_records > .current_record'), 2, 1,grid);
             } else {
                 $('.main .aside > .site_records .current_record_filter').val('');
                 $('.main .aside > .site_records .current_record_sort_by').val('');
                 $('.main .aside > .site_records .current_record_offset').val('');
                 $('.main .aside > .site_records .current_record_search_keyword').val('');
-                load_aside($('.main .aside > .site_records > .current_record'));
+                load_aside($('.main .aside > .site_records > .current_record'),0,0,grid);
             }
         }
     }
@@ -148,7 +148,7 @@ $('.main').on('click', '.load_aside', function(e) {
     $('.main .aside > .mini_audio_player').removeClass('d-none');
 });
 
-function load_aside(load, append = 0, skiptitle = 0) {
+function load_aside(load, append = 0, skiptitle = 0,isgrid = false) {
     asideload = load;
     asideappend = append; 
     asideskiptitle = skiptitle;
@@ -430,8 +430,8 @@ function load_aside(load, append = 0, skiptitle = 0) {
                         });
                     }
                 }
-                console.log(grid);
-                if(grid){
+                console.log(isgrid);
+                if(isgrid){
                     switch(gridshownum) {
                         case 1:
                             $('.main .aside > .site_records > .records > .list').addClass('grid');
@@ -554,7 +554,7 @@ function load_aside(load, append = 0, skiptitle = 0) {
                         }
                         if (data.loaded !== undefined) {
                             if ((data.loaded.title == "Files")||(data.loaded.title == "Bestanden")) {
-                                list = list + '<label class="selector prevent_default select_file_item asdasdasd">';
+                                list = list + '<label class="selector prevent_default select_file_item">';
                                 if(content[key].is_show==1){
                                     list = list + '<input type="checkbox" checked name="' + data.multiple_select.attributes.multi_select + '[]" value="' + content[key].identifier + '"/>';
                                 } else {
@@ -654,6 +654,7 @@ function load_aside(load, append = 0, skiptitle = 0) {
             }
         });
     }
+    grid = isgrid;
 }
 
 
@@ -669,8 +670,9 @@ $('body').on('change', '.main .aside > .site_records > .records > .list > li > d
     }
 });
 
-$('body').on('change', '.main .aside > .site_records > .records > .list > li > div > .selector.select_file_item > input', function(e) {
+$('body').on('change', '.main .aside > .site_records > .records > .list > li > div > div > .selector.select_file_item > input', function(e) {
     if($(this).prop('checked')){
+        console.log("file checked!");
         $.ajax({
             type: 'POST',
             url: api_request_url,
@@ -691,8 +693,8 @@ $('body').on('change', '.main .aside > .site_records > .records > .list > li > d
         }).fail(function(qXHR, textStatus, errorThrown) {
             console.log('ERROR : ' + errorThrown);
         });
-        console.log("file checked!");
     } else{
+        console.log("file unchecked!");
         $.ajax({
             type: 'POST',
             url: api_request_url,
@@ -713,7 +715,6 @@ $('body').on('change', '.main .aside > .site_records > .records > .list > li > d
         }).fail(function(qXHR, textStatus, errorThrown) {
             console.log('ERROR : ' + errorThrown);
         });
-        console.log("file unchecked!");
     }
         
 });
@@ -722,7 +723,7 @@ $('body').on('change', '.main .aside > .site_records > .records > .list > li > d
 $('body').on('click', ".main .aside > .site_records > .records > .list > li", function(event) {
     if (!$(event.target).hasClass('prevent_default') && !$(event.target).parent().hasClass('prevent_default')) {
         user_id = $(this).attr('user_id');
-        console.log("user_id",user_id);
+        console.log("user_id checked!",user_id);
         $.ajax({
             type: 'POST',
             url: api_request_url,
@@ -741,7 +742,6 @@ $('body').on('click', ".main .aside > .site_records > .records > .list > li", fu
             }).fail(function(qXHR, textStatus, errorThrown) {
                 console.log('ERROR : ' + errorThrown);
             });
-            console.log("file checked!");
         if (!$(this).find(".options > span").is(":visible")) {
             $(".main .aside > .site_records > .records > .list > li > div > .right > .options > span").hide();
             $(".main .aside > .site_records > .records > .list > li > div > .left-grid > .options > span").hide();
@@ -779,14 +779,12 @@ $('body').on('click', ".main .aside > .site_records > .records > .list > li > di
 });
 $('body').on('click', ".main .aside > .site_records > .current_record > .button > .list-button", function(e) {
     console.log("list");
-    grid = false;
-    load_aside(asideload,asideappend,asideskiptitle);
+    load_aside(asideload,asideappend,asideskiptitle,false);
     $('.main .aside > .site_records > .records > .list').removeClass('grid');
 });
 $('body').on('click', ".main .aside > .site_records > .current_record > .button > .grid-button", function(e) {
     console.log("grid");
-    grid = true;
-    load_aside(asideload,asideappend,asideskiptitle);
+    load_aside(asideload,asideappend,asideskiptitle,true);
     $('.main .aside > .site_records > .records > .list').addClass('grid');
 });
 

@@ -38,36 +38,37 @@ $( function() {
         stop: function(event, ui) {
             asidewidth = ui.size.width;
             console.log("in",asidewidth);
+            grid = true;
             if(asidewidth < 230) {
                 //show 1
                 gridshownum = 1;
-                load_aside(asideload, asideappend, asideskiptitle);
+                load_aside(asideload, asideappend, asideskiptitle,true);
                 console.log("in",asidewidth);
 
             } else if((asidewidth>230)&&(asidewidth<=365)) {
                 gridshownum = 2;
-                load_aside(asideload, asideappend, asideskiptitle);
+                load_aside(asideload, asideappend, asideskiptitle,true);
                 console.log("in",asidewidth);
                 //show 3 
             } else if((asidewidth>365)&&(asidewidth<=573)) {
                 gridshownum = 4;
-                load_aside(asideload, asideappend, asideskiptitle);
+                load_aside(asideload, asideappend, asideskiptitle,true);
                 console.log("in",asidewidth);
                 //show 4 
             } else if ((asidewidth>573)&&(asidewidth<=673)) {
                 gridshownum = 5;
-                load_aside(asideload, asideappend, asideskiptitle);
+                load_aside(asideload, asideappend, asideskiptitle,true);
                 console.log("in",asidewidth);
                 //show 5
             } else if (asidewidth>673) {
                 gridshownum = 6;
-                load_aside(asideload, asideappend, asideskiptitle);
+                load_aside(asideload, asideappend, asideskiptitle,true);
                 console.log("in",asidewidth);
                 //show 6
             } else {
                 gridshownum = 3;
                 console.log("default!");
-                load_aside(asideload, asideappend, asideskiptitle);
+                load_aside(asideload, asideappend, asideskiptitle,true);
             }
         }
    
