@@ -101,16 +101,17 @@ if (role(['permissions' => ['site_users' => ['create_user', 'edit_users'], 'prof
         ];
     }
 
-
-    $form['fields']->password = [
-        "title" => Registry::load('strings')->password, "tag" => 'input', "type" => 'password', "class" => 'field',
-        "placeholder" => Registry::load('strings')->password,
-    ];
-
-    $form['fields']->confirm_password = [
-        "title" => Registry::load('strings')->confirm_password, "tag" => 'input', "type" => 'text', "class" => 'field',
-        "placeholder" => Registry::load('strings')->confirm_password,
-    ];
+    if (role(['permissions' => ['profile' => ['new_password', 'confirm_password']], 'condition' => 'AND'])) {
+        $form['fields']->password = [
+            "title" => Registry::load('strings')->password, "tag" => 'input', "type" => 'password', "class" => 'field',
+            "placeholder" => Registry::load('strings')->password,
+        ];
+    
+        $form['fields']->confirm_password = [
+            "title" => Registry::load('strings')->confirm_password, "tag" => 'input', "type" => 'text', "class" => 'field',
+            "placeholder" => Registry::load('strings')->confirm_password,
+        ];   
+    }
 
     if (role(['permissions' => ['site_users' => ['create_user', 'edit_users']], 'condition' => 'OR'])) {
         $form['fields']->site_role = [

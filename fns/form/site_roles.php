@@ -350,6 +350,8 @@ if (role(['permissions' => ['site_roles' => ['create', 'edit']], 'condition' => 
         "change_full_name" => Registry::load('strings')->change_full_name,
         "change_username" => Registry::load('strings')->change_username,
         "change_email_address" => Registry::load('strings')->change_email_address,
+        "new_password" => Registry::load('strings')->new_password,
+        "confirm_password" => Registry::load('strings')->confirm_password,
         "change_avatar" => Registry::load('strings')->change_avatar,
         "upload_custom_avatar" => Registry::load('strings')->upload_custom_avatar,
         "set_cover_pic" => Registry::load('strings')->set_cover_pic,
